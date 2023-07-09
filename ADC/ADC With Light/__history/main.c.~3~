@@ -1,0 +1,31 @@
+#include <main.h>
+#define use_portb_lcd TRUE  
+#include<lcd.c>
+
+#INT_AD
+void  AD_isr(void) 
+{
+   output_high(pin_CS);
+   delay_ms(200);
+   output_low(pin_C5);
+}
+
+void main()
+{
+   setup_adc(adc_clock_div_32);  
+   setup_adc_ports(ALL_ANALOG);
+
+   enable_interrupts(INT_AD);
+   enable_interrupts(GLOBAL);
+   lcd_init();    
+   
+   printf(lcd_putc,"\f  ISIK"); // LCD'ye yazý yazdýrýlýyor
+   printf(lcd_putc,"\n  UYG."); // LCD'ye yazý yazdýrýlýyor
+   delay_ms(1000);
+   
+   while(TRUE)
+   {
+      //TODO: User Code
+   }
+
+}

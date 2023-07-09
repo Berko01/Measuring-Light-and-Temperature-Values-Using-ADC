@@ -1,0 +1,21 @@
+#include <main.h>
+
+#INT_AD
+void  AD_isr(void) 
+{
+
+}
+
+void main()
+{
+	setup_adc_ports(ALL_ANALOG);
+
+	enable_interrupts(INT_AD);
+	enable_interrupts(GLOBAL);
+
+	while(TRUE)
+	{
+		//TODO: User Code
+	}
+
+}

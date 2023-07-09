@@ -1,0 +1,64 @@
+
+ROM used: 3182 (10%)
+          3182 (10%) including unused fragments
+
+          5 Average locations per line
+          46 Average locations per statement
+
+RAM used: 39 (3%) at main() level
+          62 (4%) worst case
+
+Stack used: 7 worst case (out of 29 total available)
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+   73    25  36  ADC_UYG_DB.c
+  332     0   0  C:\Program Files\PICC\Devices\18f452.h
+  208    44  64  C:\Program Files\PICC\Drivers\flex_lcd8x2.c
+----- -----
+  613    69 Total
+
+Page ROM  %  RAM   Vol Diff  Functions:
+---- --- --- ---   --- ----  ----------
+0     40   1   1             @delay_ms1
+0     30   0   0             @const55
+0     50   1   1   326  2.8  lcd_send_nibble
+0     52   1   3   235  3.8  lcd_send_byte
+0    122   2   3   380  4.7  lcd_init
+0     36   1   4   186  5.5  lcd_gotoxy
+0     78   1   1   272  4.1  lcd_putc
+0     16   0   0    48  1.1  ADC_Kesmesi
+0    482   8   4   660  4.2  MAIN
+0     36   1   0             @const76
+0     34   1   0             @const77
+0     56   1   2             @ITOF
+0    242   4  11             @MULFF
+0    348   5  14             @DIVFF
+0    620  10  16             @ADDFF
+0     36   1   0             @const89
+0    180   3   9             @PRINTF_LU_68
+0     64   1   5             @FTOSD
+0    122   2  13             @DIV3232
+0    384   6  13             @PRINTF_L32D_68FPFPF
+
+Program metrics:
+    Functions               7
+    Statements              69
+    Comments                140
+    Volume (V)              3188
+    Difficilty (D)          24.4
+    Effort to implement (E) 77786
+    Time to implement (T)   1 hours, 12 minutes
+    Est Delivered Bugs (B)  1
+    Cyclomatic Complexity   8
+    Maintainability (MI)    132
+
+ Segment     Used  Free
+-----------  ----  ----
+00000-00002     4  0  
+00004-00006     0  4  
+00008-0009C   150  0  
+0009E-07FFE  3028  29582  
+
+
+

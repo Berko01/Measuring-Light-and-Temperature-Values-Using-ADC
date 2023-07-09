@@ -1,0 +1,42 @@
+#include <main.h>
+#define use_portb_lcd TRUE  
+#include<lcd.c>
+
+
+int16 info;
+float V0,lux;
+#INT_AD
+void  AD_isr(void) 
+{
+   output_high(pin_C5);
+   delay_ms(200);
+   output_low(pin_C5);
+}
+
+void main()
+{
+   set_tris_c(0x00);  // C portu komple çýkýþ
+   set_tris_b(0x00);  // B portu komple çýkýþ
+   output_c(0x00);    // C portu çýkýþýný sýfýrla
+   output_b(0x00);   
+   setup_adc(adc_clock_div_32);  
+   setup_adc_ports(ALL_ANALOG);
+
+   enable_interrupts(INT_AD);
+   enable_interrupts(GLOBAL);
+   lcd_init();    
+   
+   printf(lcd_putc,"\f  ISIK"); // LCD'ye yazý yazdýrýlýyor
+   printf(lcd_putc,"\n  UYGULAMASI"); // LCD'ye yazý yazdýrýlýyor
+   delay_ms(1000);
+   
+   while(TRUE)
+   {
+      set_adc_channel(5);
+      delay_us(30);         // Kanal seçiminde sonra bu bekleme süresi verilmelidir
+      info = read_adc();     // ADC sonucu okunuyor ve bilgi deðiþkenine aktarýlýyor
+      V0 = (info/1023)*5.0;
+      lux = ((2500/V0)-500.0)/3.3;
+   }
+
+}

@@ -1,0 +1,24 @@
+#include <main.h>
+#define use_portb_lcd TRUE  
+#include<lcd.c>
+
+#INT_AD
+void  AD_isr(void) 
+{
+
+}
+
+void main()
+{
+   setup_adc(adc_clock_div_32);  
+   setup_adc_ports(ALL_ANALOG);
+
+   enable_interrupts(INT_AD);
+   enable_interrupts(GLOBAL);
+
+   while(TRUE)
+   {
+      //TODO: User Code
+   }
+
+}

@@ -1,0 +1,50 @@
+[Directories]
+Include=C:\Program Files\PICC\Devices;C:\Program Files\PICC\Drivers;
+Library=
+LinkerScript=
+[defines]
+enabled=0
+D1=
+V1=
+[fileformats]
+forcecoff=0
+debug=4
+error=2
+object=0
+list=0
+scratch=0
+sta=1
+tre=1
+allerrors=1
+allwarnings=1
+stayupne=3
+stayupoe=0
+[PROJECT]
+Target=ADC_UYG_DB.hex
+Development_Mode=
+Processor=0x452F
+Processor_Text=PIC18F452
+ToolSuite=CCS
+[Target Data]
+BuildTool=C-COMPILER
+OptionString=+FH
+AdditionalOptionString=
+BuildRequired=1
+FileList=ADC_UYG_DB.c
+[ADC_UYG_DB.c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+[mru-list]
+1=ADC_UYG_DB.c
+[Windows]
+0=0000 %S 0 0 796 451 3 0
+[Opened Files]
+1=E:\SUNUMLAR_PROGRAMLAR_ÖRNEKLER\CCS_ÝLE_ PIC_PROGRAMLAMA_21052015\CCS_SUNUM_21_05_2015\UYGULAMALAR\15_ADC\ADC_SICAKLIK_DB\ADC_UYG_DB.c
+2=
+[Units]
+Count=1
+1=ADC_UYG_DB.c (main)

@@ -1,0 +1,72 @@
+/******************************************************
+      PIC18F452 ile Dahili ADC Uygulamasý
+PIC PROG/DEKA     : Port B jumper'ý LCD konumunda olmalý
+*******************************************************/
+#include <18f452.h>     // Kullanýlacak denetleyicinin baþlýk dosyasý tanýtýlýyor.
+
+#device ADC=10  // 10 bitlik ADC kullanýlacaðý belirtiliyor.
+
+// Denetleyici konfigürasyon ayarlarý
+#fuses XT,NOWDT,NOPROTECT,NOBROWNOUT,NOLVP,NOPUT,NOWRT,NODEBUG,NOCPD
+#use delay (clock=4000000) // Gecikme fonksiyonu için kullanýlacak osilatör frekansý belirtiliyor.
+
+#use fast_io(c) //Port yönlendirme komutlarý C portu için geçerli
+#use fast_io(b) //Port yönlendirme komutlarý E portu için geçerli
+#use fast_io(e) //Port yönlendirme komutlarý E portu için geçerli
+
+#define use_portb_lcd TRUE   // LCD B portuna baðlý
+
+#include <flex_lcd8x2.c>   // lcd.c dosyasý tanýtýlýyor
+
+
+#INT_AD               // ADC çevrimi bitti kesmesi
+void ADC_Kesmesi ( )
+{
+   output_high(pin_c5);  // RC5 çýkýþý 1
+   delay_ms(100);
+   output_low(pin_c5);   // RC5 çýkýþý 0
+}
+
+unsigned long int bilgi; // Ýþaretsiz 16 bitlik tam sayý tipinde deðiþken tanýmlanýyor
+float sicaklik,gerilim;            // ondalýklý tipte voltaj isminde deðiþken tanýtýlýyor
+
+//********** ANA PROGRAM FONKSÝYONU*******
+
+void main ( )
+{
+
+
+   set_tris_c(0x00);  // C portu komple çýkýþ
+   set_tris_b(0x00);  // B portu komple çýkýþ
+   set_tris_e(0x0F);  // E portu komple giriþ
+
+   output_c(0x00);    // C portu çýkýþýný sýfýrla
+   output_b(0x00);    // B portu çýkýþýný sýfýrla
+
+   setup_adc(adc_clock_div_32);   // ADC clock frekansý fosc/32
+   setup_adc_ports(ALL_ANALOG);   // Tüm AN giriþleri analog 
+   enable_interrupts(INT_AD);     // AD çevrimi bitti kesmesi tanýtýlýyor
+   enable_interrupts(GLOBAL);     // Tüm kesmeler aktif
+
+   lcd_init();                            // LCD hazýr hale getiriliyor
+
+   printf(lcd_putc,"\fSICAKLIK"); // LCD'ye yazý yazdýrýlýyor
+   printf(lcd_putc,"\n  UYG."); // LCD'ye yazý yazdýrýlýyor
+   delay_ms(1000);
+
+   while(1)   // sonsuz döngü
+   {
+      set_adc_channel(5);   // RE0/AN5 ucundaki sinyal A/D iþlemine tabi tutulacak
+      delay_us(20);         // Kanal seçiminde sonra bu bekleme süresi verilmelidir
+      bilgi=read_adc();     // ADC sonucu okunuyor ve bilgi deðiþkenine aktarýlýyor
+
+      //sicaklik=(49.8/1023)*bilgi;   // Dijitale çevirme iþlemine uðrayan sinyalin gerilimi hesaplanýyor((0.01/0.010041)*50=49.8 LM35 Yazýlýmsal Kalibrasyonu)
+      gerilim=(0.0048828125*bilgi)*1000;
+      sicaklik=(gerilim/10)+2;
+      printf(lcd_putc,"\fDigi=%lu",bilgi); // AN5 ucundaki sinyalin dijital karþýlýðý LCD'ye aktarýlýyor
+      printf(lcd_putc,"\nT=%.1f%cC",sicaklik, 223); // AN5 ucundaki sinyalin gerilim deðeri LCD'ye aktarýlýyor
+
+
+   }
+}
+

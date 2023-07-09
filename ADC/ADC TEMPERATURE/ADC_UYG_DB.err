@@ -1,0 +1,4 @@
+>>> Warning 203 "ADC_UYG_DB.c" Line 58(1,1): Condition always TRUE
+>>> Warning 216 "ADC_UYG_DB.c" Line 74(0,1): Interrupts disabled during call to prevent re-entrancy:  (@delay_ms1)
+      Memory usage:   ROM=10%      RAM=3% - 4%
+      0 Errors,  2 Warnings.
